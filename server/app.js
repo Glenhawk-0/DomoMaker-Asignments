@@ -5,6 +5,7 @@ const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const helmet = require('helmet');
+const session = require('express-session');
 
 const router = require('./router.js');
 
@@ -31,6 +32,18 @@ app.use(express.json());
 app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+app.use(session({
+  key: 'sessionid', // this is the name, by default its connect.sid
+  secret: 'Domo Arigato', //is this a domo thing?
+  resave: false,
+  saveUninitialized: false, 
+}));
+
+app.engine('handlebars', expressHandlebars.engine({defaultLayout: ''}));
 
 router(app);
 
