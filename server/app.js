@@ -12,7 +12,7 @@ const router = require('./router.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const dbURI = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
-//const dbURI = "mongodb+srv://leh3291_db_user:Lh127712@cluster0.6ypn5xk.mongodb.net/DomoMakerA?appName=Cluster0"
+// const dbURI = "mongodb+srv://leh3291_db_user:Lh127712@cluster0.6ypn5xk.mongodb.net/DomoMakerA?appName=Cluster0"
 mongoose.connect(dbURI).catch((err) => {
   if (err) {
     console.log('Could not connect to database');
@@ -29,21 +29,20 @@ app.use(compression());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
-app.set('view engine', 'handlebars');
-app.set('views', `${__dirname}/../views`);
-
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(session({
   key: 'sessionid', // this is the name, by default its connect.sid
-  secret: 'Domo Arigato', //is this a domo thing?
+  secret: 'Domo Arigato', // is this a domo thing?
   resave: false,
-  saveUninitialized: false, 
+  saveUninitialized: false,
 }));
 
-app.engine('handlebars', expressHandlebars.engine({defaultLayout: ''}));
+app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
+
+app.set('view engine', 'handlebars');
+app.set('views', `${__dirname}/../views`);
 
 router(app);
 
